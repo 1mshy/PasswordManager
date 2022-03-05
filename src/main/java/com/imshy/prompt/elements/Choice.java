@@ -10,7 +10,4 @@ public abstract class Choice {
     @Override
     public abstract String toString();
 
-
-
-
 }

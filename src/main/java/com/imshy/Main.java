@@ -1,9 +1,7 @@
 package com.imshy;
 
-import com.imshy.prompt.AbstractPrompt;
 import com.imshy.prompt.ListPrompt;
-import com.imshy.prompt.elements.Choice;
-import com.imshy.prompt.elements.ListChoice;
+import com.imshy.prompt.Prompt;
 
 import java.util.ArrayList;
 
@@ -13,6 +11,7 @@ public class Main {
     * The user then can interact with the passwords, add, remove, update (remove -> add) */
 
     public static void main(String[] args) {
-        AbstractPrompt<String> a = new ListPrompt<>(new ArrayList<>());
+        UI ui = new UI();
+        ui.start();
     }
 }
