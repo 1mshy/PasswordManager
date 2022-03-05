@@ -1,13 +1,9 @@
 package com.imshy.Encrypter;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +13,8 @@ import java.util.Random;
 
 @Deprecated
 public class Mapper {
-    private final String ALLCHARACTERS = "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-    private final String MAPFILENAME = "map.json";
+    private final String ALL_CHARACTERS = "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+    private final String MAP_FILE_NAME = "map.json";
 
     public String encryptString(String string) {
         return null;
@@ -31,10 +27,10 @@ public class Mapper {
     // maps characters onto other characters
     public Map<Character, Character> generateMap() {
         List<Character> keys = new ArrayList<>();
-        ALLCHARACTERS.chars().forEach(c -> keys.add((char) c));
+        ALL_CHARACTERS.chars().forEach(c -> keys.add((char) c));
         List<Character> values = new ArrayList<>(keys);
 
-        int numOfCharacters = this.ALLCHARACTERS.length();
+        int numOfCharacters = this.ALL_CHARACTERS.length();
         Map<Character, Character> map = new HashMap<>();
         Random random = new Random();
 
@@ -62,7 +58,7 @@ public class Mapper {
     }
 
     private void writeToFile(Map<Character, Character> map) throws IOException {
-        FileWriter mapWriter = new FileWriter(MAPFILENAME);
+        FileWriter mapWriter = new FileWriter(MAP_FILE_NAME);
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         map.forEach((k, v) -> sb.append('"').append(k).append('"').append(':').append('"').append(v).append('"').append(','));
@@ -78,7 +74,7 @@ public class Mapper {
             if (!fileExists()) {
                 createFile();
             }
-            FileWriter map = new FileWriter(MAPFILENAME);
+            FileWriter map = new FileWriter(MAP_FILE_NAME);
             map.write(data);
             map.close();
         } catch (IOException e) {
@@ -118,11 +114,11 @@ public class Mapper {
     }
 
     private void createFile() throws IOException {
-        new File(MAPFILENAME).createNewFile();
+        new File(MAP_FILE_NAME).createNewFile();
     }
 
     private File createFileInstance() {
-        return new File(MAPFILENAME);
+        return new File(MAP_FILE_NAME);
     }
 
 }

@@ -1,6 +1,11 @@
 package com.imshy;
 
-import com.imshy.Encrypter.Encrypt;
+import com.imshy.prompt.AbstractPrompt;
+import com.imshy.prompt.ListPrompt;
+import com.imshy.prompt.elements.Choice;
+import com.imshy.prompt.elements.ListChoice;
+
+import java.util.ArrayList;
 
 public class Main {
     /*
@@ -8,6 +13,6 @@ public class Main {
     * The user then can interact with the passwords, add, remove, update (remove -> add) */
 
     public static void main(String[] args) {
-        
+        AbstractPrompt<String> a = new ListPrompt<>(new ArrayList<>());
     }
 }
