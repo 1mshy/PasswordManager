@@ -1,4 +1,4 @@
-package com.imshy.prompt.elements;
+package com.imshy.UserInterface.Prompt.elements;
 
 public class ListChoice extends Choice{
     private final int number;

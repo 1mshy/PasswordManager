@@ -1,4 +1,4 @@
-package com.imshy.prompt.elements;
+package com.imshy.UserInterface.Prompt.elements;
 
 public abstract class Choice {
     final String choice;
