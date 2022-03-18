@@ -4,5 +4,4 @@ import java.util.List;
 
 public interface Prompt<E> {
     String structurePrompt();
-    List<E> getValues();
 }

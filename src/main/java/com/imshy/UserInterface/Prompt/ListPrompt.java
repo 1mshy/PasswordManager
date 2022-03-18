@@ -6,7 +6,7 @@ import com.imshy.UserInterface.Prompt.elements.ListChoice;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPrompt<E> implements Prompt<E> {
+public abstract class ListPrompt<E> implements Prompt<E> {
     private final List<E> values;
 
     public ListPrompt(List<E> values) {
@@ -18,7 +18,7 @@ public class ListPrompt<E> implements Prompt<E> {
         ArrayList<Choice> choices = mapToChoices(values);
         return stringChoices(choices);
     }
-    @Override
+
     public List<E> getValues(){
         return values;
     }
