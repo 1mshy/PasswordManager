@@ -2,24 +2,32 @@ package com.imshy.UserInterface;
 
 import com.imshy.UserInterface.Prompt.ListPrompt;
 import com.imshy.UserInterface.Prompt.MainPrompt;
-import com.imshy.UserInterface.Prompt.Prompt;
-
-import java.util.*;
 
 public class UI {
-    public UI() {
-    }
+
+    private final Output OUTPUT = new Output();
+    private final Input INPUT = new Input();
+    private final ListPrompt<String> MAIN_PROMPT = new MainPrompt();
     public void start() {
-        final Output OUTPUT = new Output();
-
-        ListPrompt<String> mainPrompt = new MainPrompt();
-        OUTPUT.printPrompt(mainPrompt);
-
-        final Input INPUT = new Input();
-        int chosen = INPUT.takeInputNumber(mainPrompt.getValues().size());
-
-
+        printMainPrompt();
+        int chosen = scanInputNumber();
     }
+
+    public void printMainPrompt()
+    {
+        OUTPUT.printPrompt(MAIN_PROMPT);
+    }
+    private int scanInputNumber()
+    {
+        return INPUT.takeInputNumber(MAIN_PROMPT.size());
+    }
+    public ListPrompt<String> getMainPrompt()
+    {
+        return MAIN_PROMPT;
+    }
+
+
+
 }
 
 

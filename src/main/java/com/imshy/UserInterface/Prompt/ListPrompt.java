@@ -19,6 +19,9 @@ public abstract class ListPrompt<E> implements Prompt<E> {
         return stringChoices(choices);
     }
 
+    public int size() {
+        return getValues().size();
+    }
     public List<E> getValues(){
         return values;
     }
