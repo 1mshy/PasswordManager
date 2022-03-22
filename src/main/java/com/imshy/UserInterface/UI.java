@@ -8,26 +8,23 @@ public class UI {
     private final Output OUTPUT = new Output();
     private final Input INPUT = new Input();
     private final ListPrompt<String> MAIN_PROMPT = new MainPrompt();
+
     public void start() {
         printMainPrompt();
         int chosen = scanInputNumber();
     }
 
-    public void printMainPrompt()
-    {
+    public void printMainPrompt() {
         OUTPUT.printPrompt(MAIN_PROMPT);
     }
-    private int scanInputNumber()
-    {
+
+    public int scanInputNumber() {
         return INPUT.takeInputNumber(MAIN_PROMPT.size());
     }
-    public ListPrompt<String> getMainPrompt()
-    {
+
+    public ListPrompt<String> getMainPrompt() {
         return MAIN_PROMPT;
     }
-
-
-
 }
 
 
