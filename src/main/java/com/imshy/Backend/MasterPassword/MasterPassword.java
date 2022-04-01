@@ -22,15 +22,11 @@ public class MasterPassword extends PasswordUtil {
 
     private String retrievePassword() {
         try {
-            return unencryptPassword(masterFileCollector.readPassword());
+            return xorEncrypter.decrypt(masterFileCollector.readPassword());
         } catch (IOException e) {
             e.printStackTrace();
         }
         throw new RuntimeException("Could not retrieve password");
-    }
-
-    private String unencryptPassword(String password) {
-        return xorEncrypter.decrypt(password);
     }
 
     public void setMasterPassword(String masterPassword) {

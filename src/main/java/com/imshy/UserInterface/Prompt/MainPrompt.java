@@ -6,11 +6,11 @@ import java.util.List;
 
 public class MainPrompt extends ListPrompt<String> {
     public MainPrompt() {
-        super(OPTION.getStringedOptions());
+        super(OPTION.getOptionLabels());
     }
 
     public enum OPTION {
-        SAVE_PASSWORD("Save Password"),
+        ADD_PASSWORD("Add Password"),
         REMOVE_PASSWORD("Remove Password"),
         UPDATE_PASSWORD("Update Password");
         // label has to be defined here or enum will break
@@ -23,7 +23,7 @@ public class MainPrompt extends ListPrompt<String> {
         static List<OPTION> getOptions() {
             return new ArrayList<>(EnumSet.allOf(OPTION.class));
         }
-        static List<String> getStringedOptions() {
+        static List<String> getOptionLabels() {
             List<String> stringedOptions = new ArrayList<>();
             List<OPTION> options = getOptions();
 

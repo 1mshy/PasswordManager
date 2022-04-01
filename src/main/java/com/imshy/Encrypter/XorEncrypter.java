@@ -2,6 +2,7 @@ package com.imshy.Encrypter;
 
 import java.math.BigInteger;
 
+// will be used to store user passwords, excluding the master password
 public class XorEncrypter {
 
     private final int RADIX = 20;

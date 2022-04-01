@@ -3,12 +3,42 @@ package com.imshy.Backend.MasterPassword;
 import java.io.*;
 
 public class MasterFileCollector {
-    private final String masterFilePath;
     private final String masterFileName;
+    private final String userHomePath;
+    private final String masterPath;
+    private final String masterFilePath;
+
+
 
     public MasterFileCollector() {
-        this.masterFileName = "master.txt";
-        this.masterFilePath = System.getProperty("user.home") + "/Documents/" + masterFileName;
+        this.masterFileName = "poker";
+        this.userHomePath = System.getProperty("user.home");
+        this.masterPath = userHomePath + "/Documents/";
+        this.masterFilePath = masterPath + masterFileName;
+
+        createMasterFileIfMissing();
+    }
+
+    private void createMasterFileIfMissing() {
+        try {
+            File file = new File(masterFilePath);
+            if (!file.exists()) {
+                createPath();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Could not create master file");
+        }
+    }
+    private void createPath() throws IOException {
+        createFolders();
+
+        File file = new File(masterFilePath);
+        file.createNewFile();
+    }
+    private void createFolders() {
+        File file = new File(masterPath);
+        file.mkdirs();
     }
 
     public String getMasterFilePath() {
