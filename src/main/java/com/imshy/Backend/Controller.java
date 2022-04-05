@@ -4,13 +4,12 @@ import com.imshy.Backend.Prompts.AddPasswordPrompt;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
 import com.imshy.UserInterface.Prompt.MainPrompt;
-import com.imshy.UserInterface.Prompt.Prompt;
 import com.imshy.UserInterface.UI;
 
 
 public class Controller {
     private static Controller instance;
-    private static String[] args;
+    private final String[] args;
 
     public static Controller getInstance(String[] args) {
         if (instance == null) {
@@ -20,17 +19,23 @@ public class Controller {
     }
 
     private Controller(String[] args) {
-        Controller.args = args;
+        this.args = args;
     }
 
     public void run() {
-        if (args.length > 0) {
-            //TODO cli
+        // domain - email - password
+        if (args.length == 3) {
+            cli();
         } else
         {
             scanAndExecute();
             System.exit(0);
         }
+    }
+
+    private void cli()
+    {
+
     }
 
     //shows the normal UI + takes input + executes the input
@@ -44,7 +49,6 @@ public class Controller {
             case ADD_PASSWORD -> addPassword();
             case UPDATE_PASSWORD -> updatePassword();
         }
-
     }
 
 

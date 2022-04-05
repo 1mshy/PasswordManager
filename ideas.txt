@@ -1,0 +1,4 @@
+going to encrypt the password file using the master password. That way, the
+parser will throw an error when the password is wrong. The master password is
+never stored and the other passwords will not be exposed, even when in
+nefarious hands.

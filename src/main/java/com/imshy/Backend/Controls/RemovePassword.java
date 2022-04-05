@@ -1,4 +1,4 @@
 package com.imshy.Backend.Controls;
 
-public class RemovePassword extends PasswordUtil{
+class RemovePassword extends PasswordUtil{
 }

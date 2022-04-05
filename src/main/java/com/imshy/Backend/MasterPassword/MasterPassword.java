@@ -1,11 +1,10 @@
 package com.imshy.Backend.MasterPassword;
 
-import com.imshy.Backend.Controls.PasswordUtil;
 import com.imshy.Encrypter.XorEncrypter;
 
 import java.io.*;
 
-public class MasterPassword extends PasswordUtil {
+public class MasterPassword {
     private String masterPassword;
     final MasterFileCollector masterFileCollector;
     final XorEncrypter xorEncrypter;

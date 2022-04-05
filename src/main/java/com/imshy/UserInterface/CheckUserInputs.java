@@ -9,4 +9,13 @@ public class CheckUserInputs {
         return false;
     }
 
+    public boolean isValidPassword(String password)
+    {
+        if(password.length() < 8)
+            return false;
+
+        return true;
+
+    }
+
 }

@@ -34,8 +34,9 @@ public class Input {
         return scannedInt;
     }
 
+    // no new line character
     private void printDefaultInputMessage() {
-        System.out.println(DEFAULT_INPUT_MESSAGE);
+        System.out.print(DEFAULT_INPUT_MESSAGE);
     }
 
     // *email* *source* *password*
