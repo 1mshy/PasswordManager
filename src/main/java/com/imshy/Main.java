@@ -1,6 +1,10 @@
 package com.imshy;
 
 import com.imshy.Backend.Controller;
+import com.imshy.UserInterface.Input;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class Main {
@@ -10,6 +14,9 @@ public class Main {
      */
 
     public static void main(String[] args) {
+        new Input().takeCombo();
+        new Input().takeCombo();
+
         Controller controller = Controller.getInstance(args);
         controller.run();
 

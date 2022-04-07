@@ -1,10 +1,15 @@
 package com.imshy.Backend;
 
-import com.imshy.Backend.Prompts.AddPasswordPrompt;
+import com.imshy.Backend.MasterPassword.MasterPassword;
+import com.imshy.UserInterface.Prompt.AddPasswordPrompt;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
 import com.imshy.UserInterface.Prompt.MainPrompt;
+import com.imshy.UserInterface.Prompt.NewMasterPasswordPrompt;
 import com.imshy.UserInterface.UI;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class Controller {
@@ -26,16 +31,45 @@ public class Controller {
         // domain - email - password
         if (args.length == 3) {
             cli();
-        } else
-        {
-            scanAndExecute();
-            System.exit(0);
+            return;
         }
+        if (!new FileManager().passwordFileExists()) {
+            try {
+                createPasswordFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String pass = obtainMasterPassword();
+        MasterPassword masterPassword = new MasterPassword();
+        masterPassword.setMasterPassword(pass);
+        
+        scanAndExecute();
+        System.exit(0);
+
+
     }
 
-    private void cli()
-    {
+    private void cli() {
 
+    }
+    
+    private void createPasswordFile() throws IOException {
+        FileManager fileManager = new FileManager();
+        File password = fileManager.getPasswordFile();
+        File parent = password.getParentFile();
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
+        password.createNewFile();
+    }
+
+    private String obtainMasterPassword() {
+        Output output = new Output();
+        output.printPrompt(new NewMasterPasswordPrompt());
+        Input input = new Input();
+        String masterPasswordString = input.scan();
+        return masterPasswordString;
     }
 
     //shows the normal UI + takes input + executes the input
@@ -57,9 +91,9 @@ public class Controller {
         Input input = new Input();
         String[] credentials = input.takeCombo().split(" ");
     }
+
     private void removePassword() {
     }
-
 
 
     private void updatePassword() {

@@ -6,7 +6,7 @@ import com.imshy.UserInterface.Prompt.elements.ListChoice;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ListPrompt<E> implements Prompt<E> {
+public abstract class ListPrompt<E> implements Prompt {
     private final List<E> values;
 
     public ListPrompt(List<E> values) {

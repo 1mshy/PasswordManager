@@ -1,4 +1,4 @@
-package com.imshy.Backend.Prompts;
+package com.imshy.UserInterface.Prompt;
 
 import com.imshy.UserInterface.Prompt.Prompt;
 

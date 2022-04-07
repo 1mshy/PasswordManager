@@ -12,6 +12,11 @@ public class Input {
         return takeInputNumber(1, end);
     }
 
+
+    public String scan()
+    {
+        return SC.nextLine();
+    }
     // IMPORTANT
     // function will cease the program if input is "exit" or "quit"
     public int takeInputNumber(int start, int end) {
@@ -38,13 +43,13 @@ public class Input {
     private void printDefaultInputMessage() {
         System.out.print(DEFAULT_INPUT_MESSAGE);
     }
-
+    // IMPORTANT ONLY USE WHEN USER INPUTS
     // *email* *source* *password*
     public String takeCombo() {
         CheckUserInputs checkUserInputs = new CheckUserInputs();
         int emailLocation = 0;
         String input = null;
-        while (input == null || input.split(" ").length == 3 || checkUserInputs.isEmail(input.split(" ")[emailLocation])) {
+        while (input == null || input.split(" ").length != 3 || !checkUserInputs.isEmail(input.split(" ")[emailLocation])) {
             printDefaultInputMessage();
             input = SC.nextLine();
         }
