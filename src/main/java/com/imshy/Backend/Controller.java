@@ -1,11 +1,10 @@
 package com.imshy.Backend;
 
+import com.google.gson.JsonObject;
 import com.imshy.Backend.MasterPassword.MasterPassword;
-import com.imshy.UserInterface.Prompt.AddPasswordPrompt;
+import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
-import com.imshy.UserInterface.Prompt.MainPrompt;
-import com.imshy.UserInterface.Prompt.NewMasterPasswordPrompt;
 import com.imshy.UserInterface.UI;
 
 import java.io.File;
@@ -15,6 +14,7 @@ import java.io.IOException;
 public class Controller {
     private static Controller instance;
     private final String[] args;
+    private final FileManager fileManager;
 
     public static Controller getInstance(String[] args) {
         if (instance == null) {
@@ -25,6 +25,7 @@ public class Controller {
 
     private Controller(String[] args) {
         this.args = args;
+        this.fileManager = new FileManager();
     }
 
     public void run() {
@@ -43,7 +44,7 @@ public class Controller {
         String pass = obtainMasterPassword();
         MasterPassword masterPassword = new MasterPassword();
         masterPassword.setMasterPassword(pass);
-        
+
         scanAndExecute();
         System.exit(0);
 
@@ -53,7 +54,7 @@ public class Controller {
     private void cli() {
 
     }
-    
+
     private void createPasswordFile() throws IOException {
         FileManager fileManager = new FileManager();
         File password = fileManager.getPasswordFile();
@@ -85,18 +86,36 @@ public class Controller {
         }
     }
 
+    private Combo printPromptAndGetValues(Prompt prompt) {
+        new Output().printPrompt(prompt);
+        return new Combo(new Input().takeCombo().split(" "));
+    }
 
     private void addPassword() {
-        new Output().printPrompt(new AddPasswordPrompt());
-        Input input = new Input();
-        String[] credentials = input.takeCombo().split(" ");
+        Combo credentials = printPromptAndGetValues(new AddPasswordPrompt());
+
+        JsonObject data = fileManager.getFileJson();
+        if (!data.has(credentials.getDomain())) {
+            data.add(credentials.getDomain(), new JsonObject());
+        }
+        JsonObject domain = data.get(credentials.getDomain()).getAsJsonObject();
+
+        if (!domain.has(credentials.getEmail())) {
+            domain.add(credentials.getEmail(), new JsonObject());
+        }
+        JsonObject email = data.get(credentials.getEmail()).getAsJsonObject();
+
+
+
     }
 
     private void removePassword() {
-    }
 
+        Combo credentials = printPromptAndGetValues(new RemovePasswordPrompt());
+    }
 
     private void updatePassword() {
 
+        Combo credentials = printPromptAndGetValues(new UpdatePasswordPrompt());
     }
 }

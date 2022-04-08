@@ -5,6 +5,7 @@ import com.imshy.UserInterface.Input;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 
 public class Main {
@@ -14,9 +15,6 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        new Input().takeCombo();
-        new Input().takeCombo();
-
         Controller controller = Controller.getInstance(args);
         controller.run();
 
