@@ -1,20 +1,18 @@
 package com.imshy.Backend;
 
 import com.google.gson.JsonObject;
-import com.imshy.Backend.MasterPassword.MasterPassword;
+import com.imshy.Backend.Password.MasterPassword;
 import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
 import com.imshy.UserInterface.UI;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class Controller {
     private static Controller instance;
     private final String[] args;
     private final FileManager fileManager;
+    private final JsonTools jsonTools;
 
     public static Controller getInstance(String[] args) {
         if (instance == null) {
@@ -26,6 +24,7 @@ public class Controller {
     private Controller(String[] args) {
         this.args = args;
         this.fileManager = new FileManager();
+        this.jsonTools = new JsonTools();
     }
 
     public void run() {
@@ -34,16 +33,11 @@ public class Controller {
             cli();
             return;
         }
-        if (!new FileManager().passwordFileExists()) {
-            try {
-                createPasswordFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         String pass = obtainMasterPassword();
         MasterPassword masterPassword = new MasterPassword();
         masterPassword.setMasterPassword(pass);
+
+        fileManager.createFileIfMissing();
 
         scanAndExecute();
         System.exit(0);
@@ -51,26 +45,25 @@ public class Controller {
 
     }
 
+
     private void cli() {
 
     }
 
-    private void createPasswordFile() throws IOException {
-        FileManager fileManager = new FileManager();
-        File password = fileManager.getPasswordFile();
-        File parent = password.getParentFile();
-        if (parent != null && !parent.exists() && !parent.mkdirs()) {
-            throw new IllegalStateException("Couldn't create dir: " + parent);
-        }
-        password.createNewFile();
-    }
+
 
     private String obtainMasterPassword() {
         Output output = new Output();
-        output.printPrompt(new NewMasterPasswordPrompt());
+        output.printPrompt(getCorrectMasterPrompt());
         Input input = new Input();
-        String masterPasswordString = input.scan();
-        return masterPasswordString;
+        return input.scan();
+    }
+
+    private MasterPasswordPrompt getCorrectMasterPrompt()
+    {
+        if(fileManager.passwordFileExists())
+            return new MasterPasswordPrompt();
+        return new NewMasterPasswordPrompt();
     }
 
     //shows the normal UI + takes input + executes the input
@@ -94,7 +87,7 @@ public class Controller {
     private void addPassword() {
         Combo credentials = printPromptAndGetValues(new AddPasswordPrompt());
 
-        JsonObject data = fileManager.getFileJson();
+        JsonObject data = jsonTools.getFileJson();
         if (!data.has(credentials.getDomain())) {
             data.add(credentials.getDomain(), new JsonObject());
         }
@@ -104,10 +97,8 @@ public class Controller {
             domain.add(credentials.getEmail(), new JsonObject());
         }
         JsonObject email = data.get(credentials.getEmail()).getAsJsonObject();
-
-
-
     }
+
 
     private void removePassword() {
 

@@ -1,7 +1,6 @@
 package com.imshy.Backend;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.imshy.Encrypter.XorEncrypter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,8 +31,41 @@ public class FileManager {
         }
         return sb.toString();
     }
+    public void createFileIfMissing()
+    {
+        if (!new FileManager().passwordFileExists()) {
+            try {
+                createPasswordFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void createPasswordFile() throws IOException {
+        File password = getPasswordFile();
+        File parent = password.getParentFile();
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
+        password.createNewFile();
+    }
+    public String retrieveUnenctryptedFileData() {
+        //series of tests that validates the master password correctly decrypted the data
+        String data;
+        String unencryptedData = "";
+        try {
+            data = getFileData();
+            unencryptedData = XorEncrypter.getInstance().decrypt(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new JsonTools().validateJson(unencryptedData);
+        // program will shut down if there was an error
+        return unencryptedData;
+    }
 
-    public String tryGetFileData() {
+
+    public String tryToGetFileData() {
         String data = "Ratatouille";
         try {
             data = getFileData();
@@ -47,9 +79,6 @@ public class FileManager {
 
     }
 
-    public JsonObject getFileJson() {
-        return JsonParser.parseString(tryGetFileData()).getAsJsonObject();
-    }
 
 
 }

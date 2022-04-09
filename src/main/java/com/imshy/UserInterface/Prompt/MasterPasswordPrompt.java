@@ -1,6 +1,6 @@
 package com.imshy.UserInterface.Prompt;
 
-public class ExistingMasterPasswordPrompt implements Prompt{
+public class MasterPasswordPrompt implements Prompt{
 
     @Override
     public String structurePrompt() {

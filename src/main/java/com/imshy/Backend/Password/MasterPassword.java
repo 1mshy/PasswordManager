@@ -1,4 +1,4 @@
-package com.imshy.Backend.MasterPassword;
+package com.imshy.Backend.Password;
 
 import com.imshy.Encrypter.XorEncrypter;
 
