@@ -4,6 +4,6 @@ public class NewMasterPasswordPrompt extends MasterPasswordPrompt {
 
     @Override
     public String structurePrompt() {
-        return "Enter new master password: ";
+        return "Enter a new master password *IMPORTANT* If this password is forgotten, there is no getting back your saved passwords";
     }
 }

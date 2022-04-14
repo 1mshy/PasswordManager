@@ -10,9 +10,9 @@ public class MainPrompt extends ListPrompt<String> {
     }
 
     public enum OPTION {
-        ADD_PASSWORD("Add Password"),
+        ADD_OR_UPDATE_PASSWORD("Add/Update Password"),
         REMOVE_PASSWORD("Remove Password"),
-        UPDATE_PASSWORD("Update Password");
+        SHOW_PASSWORD("Show Password");
         // label has to be defined here or enum will break
         private final String label;
 

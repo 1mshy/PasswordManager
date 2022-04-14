@@ -4,40 +4,47 @@ import com.google.gson.JsonObject;
 import com.imshy.Backend.Combo;
 import com.imshy.Backend.FileManager;
 import com.imshy.Backend.JsonTools;
-import com.imshy.UserInterface.Input;
-import com.imshy.UserInterface.Output;
-import com.imshy.UserInterface.Prompt.AddPasswordPrompt;
-import com.imshy.UserInterface.Prompt.Prompt;
+import com.imshy.Backend.Writer;
 
 public abstract class Password {
-    private final FileManager fileManager = new FileManager();
-    private final JsonTools jsonTools = new JsonTools();
-    private final Combo combo;
-    public Password(Combo combo)
-    {
+    final FileManager fileManager = new FileManager();
+    final JsonTools jsonTools = new JsonTools();
+    final Writer writer = new Writer();
+    final Combo combo;
+    JsonObject data;
+
+    public Password(Combo combo) {
         this.combo = combo;
+        this.data = jsonTools.getFileJson();
     }
 
-
-    private Combo printPromptAndGetValues(Prompt prompt) {
-        new Output().printPrompt(prompt);
-        return new Combo(new Input().takeCombo().split(" "));
+    JsonObject parseDomain() {
+        return data.get(combo.getDomain()).getAsJsonObject();
     }
 
-    private void addPassword() {
-        Combo credentials = printPromptAndGetValues(new AddPasswordPrompt());
-
-        JsonObject data = jsonTools.getFileJson();
-        if (!data.has(credentials.getDomain())) {
-            data.add(credentials.getDomain(), new JsonObject());
-            
+    JsonObject lazyParseDomain() {
+        if (!data.has(combo.getDomain())) {
+            data.add(combo.getDomain(), new JsonObject());
         }
-        JsonObject domain = data.get(credentials.getDomain()).getAsJsonObject();
-
-        if (!domain.has(credentials.getEmail())) {
-            domain.add(credentials.getEmail(), new JsonObject());
-        }
-        JsonObject email = data.get(credentials.getEmail()).getAsJsonObject();
+        return parseDomain();
     }
+    String parsePassword()
+    {
+        return lazyParseDomain().get(combo.getEmail()).getAsString();
+    }
+    String lazyParsePassword() {
+        JsonObject domain = lazyParseDomain();
+
+        if (!domain.has(combo.getEmail())) {
+            domain.addProperty(combo.getEmail(), "NotARealPassword");
+        }
+        return parsePassword();
+    }
+
+
+    abstract public void runPasswordFunction();
+
+
+
 
 }

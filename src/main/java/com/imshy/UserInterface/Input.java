@@ -1,5 +1,7 @@
 package com.imshy.UserInterface;
 
+import com.imshy.Backend.Combo;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ public class Input {
         return takeInputNumber(1, end);
     }
 
-
+    /* Just scans for the next line */
     public String scan() {
         return SC.nextLine();
     }
@@ -25,7 +27,7 @@ public class Input {
         while (scannedInt == Integer.MIN_VALUE || scannedInt < start || scannedInt > end) {
             try {
                 String input = SC.nextLine();
-                isQuitMessage(input);
+                quitIfPrompted(input);
                 scannedInt = Integer.parseInt(input);
                 if (scannedInt < start || scannedInt > end)
                     throw new IllegalArgumentException();
@@ -43,19 +45,26 @@ public class Input {
 
     // IMPORTANT ONLY USE WHEN USER INPUTS
     // *email* *source* *password*
-    public String takeCombo() {
+    public Combo takeCombo() {
+        return takeCombo(3);
+    }
+
+    public Combo takeCombo(int segments) {
         CheckUserInputs checkUserInputs = new CheckUserInputs();
         String input = null;
 
-        while (checkUserInputs.malformedComboInput(input)) {
+        while (checkUserInputs.malformedComboInput(input, segments)) {
             printDefaultInputMessage();
             input = SC.nextLine();
+            quitIfPrompted(input);
         }
-        return input;
+        assert input != null;
+        return new Combo(input.split(" "));
     }
 
 
-    private void isQuitMessage(String s) {
+
+    private void quitIfPrompted(String s) {
         if (Objects.equals(s, "quit") || Objects.equals(s, "exit")) {
             System.out.println("Exiting now...");
             System.exit(0);

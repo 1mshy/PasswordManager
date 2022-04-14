@@ -1,7 +1,6 @@
 package com.imshy.Backend;
 
-import com.google.gson.JsonObject;
-import com.imshy.Backend.Password.MasterPassword;
+import com.imshy.Backend.Password.*;
 import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
@@ -33,24 +32,21 @@ public class Controller {
             cli();
             return;
         }
-        String pass = obtainMasterPassword();
         MasterPassword masterPassword = new MasterPassword();
+        String pass = obtainMasterPassword();
         masterPassword.setMasterPassword(pass);
 
-        fileManager.createFileIfMissing();
+        fileManager.instantiateFileIfMissing();
+        masterPassword.exitIfIncorrectPassword();
 
         scanAndExecute();
         System.exit(0);
-
-
     }
 
 
     private void cli() {
 
     }
-
-
 
     private String obtainMasterPassword() {
         Output output = new Output();
@@ -59,9 +55,8 @@ public class Controller {
         return input.scan();
     }
 
-    private MasterPasswordPrompt getCorrectMasterPrompt()
-    {
-        if(fileManager.passwordFileExists())
+    private MasterPasswordPrompt getCorrectMasterPrompt() {
+        if (fileManager.passwordFileExists())
             return new MasterPasswordPrompt();
         return new NewMasterPasswordPrompt();
     }
@@ -74,39 +69,46 @@ public class Controller {
         // -1 because input options start from 1, and arrays start from 0
         switch (MainPrompt.OPTION.values()[chosen - 1]) {
             case REMOVE_PASSWORD -> removePassword();
-            case ADD_PASSWORD -> addPassword();
-            case UPDATE_PASSWORD -> updatePassword();
+            case ADD_OR_UPDATE_PASSWORD -> addPassword();
+            case SHOW_PASSWORD -> showPassword();
         }
     }
 
-    private Combo printPromptAndGetValues(Prompt prompt) {
+    private void printPrompt(Prompt prompt) {
         new Output().printPrompt(prompt);
-        return new Combo(new Input().takeCombo().split(" "));
+    }
+
+    private Combo getOutputs() {
+        return getOutputs(3);
+    }
+
+    private Combo getOutputs(int segments) {
+        return new Input().takeCombo(segments);
     }
 
     private void addPassword() {
-        Combo credentials = printPromptAndGetValues(new AddPasswordPrompt());
+        printPrompt(new AddPasswordPrompt());
+        Combo credentials = getOutputs();
 
-        JsonObject data = jsonTools.getFileJson();
-        if (!data.has(credentials.getDomain())) {
-            data.add(credentials.getDomain(), new JsonObject());
-        }
-        JsonObject domain = data.get(credentials.getDomain()).getAsJsonObject();
+        Password controls = new AddPassword(credentials);
+        controls.runPasswordFunction();
 
-        if (!domain.has(credentials.getEmail())) {
-            domain.add(credentials.getEmail(), new JsonObject());
-        }
-        JsonObject email = data.get(credentials.getEmail()).getAsJsonObject();
     }
 
 
     private void removePassword() {
-
-        Combo credentials = printPromptAndGetValues(new RemovePasswordPrompt());
+        final int SEGMENTS = 2;
+        printPrompt(new RemovePasswordPrompt());
+        Combo credentials = getOutputs(SEGMENTS);
+        Password controls = new RemovePassword(credentials);
+        controls.runPasswordFunction();
     }
 
-    private void updatePassword() {
-
-        Combo credentials = printPromptAndGetValues(new UpdatePasswordPrompt());
+    private void showPassword() {
+        final int SEGMENTS = 2;
+        printPrompt(new ShowPasswordPrompt());
+        Combo credentials = getOutputs(SEGMENTS);
+        Password controls = new ShowPassword(credentials);
+        controls.runPasswordFunction();
     }
 }

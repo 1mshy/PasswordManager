@@ -23,7 +23,7 @@ public class JsonTools {
         }
     }
     public JsonObject getFileJson() {
-        return JsonParser.parseString(fileManager.tryToGetFileData()).getAsJsonObject();
+        return JsonParser.parseString(fileManager.getUnenctryptedFileData()).getAsJsonObject();
     }
 
 

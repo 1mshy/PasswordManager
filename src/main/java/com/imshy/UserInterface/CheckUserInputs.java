@@ -9,10 +9,10 @@ public class CheckUserInputs {
         return false;
     }
 
-    public boolean malformedComboInput(String combo) {
+    public boolean malformedComboInput(String combo, int segements) {
         // *source* *email* *password*
         int emailLocation = 1;
-        if (combo == null || combo.split(" ").length != 3 || !isEmail(combo.split(" ")[emailLocation]))
+        if (combo == null || combo.split(" ").length != segements || !isEmail(combo.split(" ")[emailLocation]))
             return true;
         return false;
     }

@@ -2,10 +2,7 @@ package com.imshy.Backend;
 
 import com.imshy.Encrypter.XorEncrypter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileManager {
 
@@ -31,15 +28,21 @@ public class FileManager {
         }
         return sb.toString();
     }
-    public void createFileIfMissing()
-    {
+
+    public void instantiateFileIfMissing() {
         if (!new FileManager().passwordFileExists()) {
             try {
                 createPasswordFile();
+                writeInitialJson();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+    }
+    private void writeInitialJson() throws IOException {
+        Writer writer = new Writer();
+        writer.encryptAndWriteToFile("{}");
     }
     private void createPasswordFile() throws IOException {
         File password = getPasswordFile();
@@ -49,7 +52,8 @@ public class FileManager {
         }
         password.createNewFile();
     }
-    public String retrieveUnenctryptedFileData() {
+
+    public String getUnenctryptedFileData() {
         //series of tests that validates the master password correctly decrypted the data
         String data;
         String unencryptedData = "";
@@ -74,10 +78,10 @@ public class FileManager {
             System.err.println("Could not read the password file. Exitting now.");
             System.exit(1);
         }
-
         return data;
-
     }
+
+
 
 
 
