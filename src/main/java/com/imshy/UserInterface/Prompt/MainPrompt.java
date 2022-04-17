@@ -6,28 +6,29 @@ import java.util.List;
 
 public class MainPrompt extends ListPrompt<String> {
     public MainPrompt() {
-        super(OPTION.getOptionLabels());
+        super(MAIN_OPTIONS.getOptionLabels());
     }
 
-    public enum OPTION {
+    public enum MAIN_OPTIONS {
         ADD_OR_UPDATE_PASSWORD("Add/Update Password"),
         REMOVE_PASSWORD("Remove Password"),
-        SHOW_PASSWORD("Show Password");
+        SHOW_PASSWORD("Show Password"),
+        OTHER("Other");
         // label has to be defined here or enum will break
         private final String label;
 
-        OPTION(String label) {
+        MAIN_OPTIONS(String label) {
             this.label = label;
         }
 
-        static List<OPTION> getOptions() {
-            return new ArrayList<>(EnumSet.allOf(OPTION.class));
+        static List<MAIN_OPTIONS> getOptions() {
+            return new ArrayList<>(EnumSet.allOf(MAIN_OPTIONS.class));
         }
         static List<String> getOptionLabels() {
             List<String> stringedOptions = new ArrayList<>();
-            List<OPTION> options = getOptions();
+            List<MAIN_OPTIONS> MAINOPTIONS = getOptions();
 
-            for (OPTION o : options) {
+            for (MAIN_OPTIONS o : MAINOPTIONS) {
                 stringedOptions.add(o.label);
             }
             return stringedOptions;

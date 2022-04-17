@@ -1,6 +1,8 @@
 package com.imshy.Backend;
 
-import com.imshy.Backend.Password.*;
+import com.imshy.Backend.Password.ChangeMasterPassword;
+import com.imshy.Backend.Password.Functions.*;
+import com.imshy.Backend.Password.MasterPassword;
 import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
@@ -9,19 +11,22 @@ import com.imshy.UserInterface.UI;
 
 public class Controller {
     private static Controller instance;
-    private final String[] args;
+    private String[] args;
     private final FileManager fileManager;
     private final JsonTools jsonTools;
 
-    public static Controller getInstance(String[] args) {
+    public static Controller getInstance() {
         if (instance == null) {
-            instance = new Controller(args);
+            instance = new Controller();
         }
         return instance;
     }
 
-    private Controller(String[] args) {
+    public void setArgs(String[] args) {
         this.args = args;
+    }
+
+    private Controller() {
         this.fileManager = new FileManager();
         this.jsonTools = new JsonTools();
     }
@@ -32,7 +37,7 @@ public class Controller {
             cli();
             return;
         }
-        MasterPassword masterPassword = new MasterPassword();
+        MasterPassword masterPassword = MasterPassword.getInstance();
         String pass = obtainMasterPassword();
         masterPassword.setMasterPassword(pass);
 
@@ -60,17 +65,38 @@ public class Controller {
             return new MasterPasswordPrompt();
         return new NewMasterPasswordPrompt();
     }
+    // only works on windows for now
+    public void clearTerminal()
+    {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
     //shows the normal UI + takes input + executes the input
     private void scanAndExecute() {
         UI ui = new UI();
-        ui.printMainPrompt();
-        int chosen = ui.scanInputNumber();
+        int chosen = ui.printMainAndScan();
+
+        clearTerminal();
         // -1 because input options start from 1, and arrays start from 0
-        switch (MainPrompt.OPTION.values()[chosen - 1]) {
+        switch (MainPrompt.MAIN_OPTIONS.values()[chosen - 1]) {
             case REMOVE_PASSWORD -> removePassword();
             case ADD_OR_UPDATE_PASSWORD -> addPassword();
             case SHOW_PASSWORD -> showPassword();
+            case OTHER -> other();
+        }
+
+
+    }
+
+    private void other() {
+        UI ui = new UI();
+        int chosen = ui.printOtherAndScan();
+
+        switch (OtherPrompt.OTHER_OPTIONS.values()[chosen - 1])
+        {
+            case CHANGE_MASTER_PASSWORD -> changeMasterPassword();
+            case SHOW_ALL_PASSWORDS -> showAllPasswords();
         }
     }
 
@@ -90,17 +116,27 @@ public class Controller {
         printPrompt(new AddPasswordPrompt());
         Combo credentials = getOutputs();
 
-        Password controls = new AddPassword(credentials);
+        AbstractPassword controls = new AddPassword(credentials);
         controls.runPasswordFunction();
 
     }
 
+    private void showAllPasswords()
+    {
+
+    }
+
+    private void changeMasterPassword()
+    {
+        ChangeMasterPassword changeMasterPassword = new ChangeMasterPassword();
+        changeMasterPassword.changeMasterPassword();
+    }
 
     private void removePassword() {
         final int SEGMENTS = 2;
         printPrompt(new RemovePasswordPrompt());
         Combo credentials = getOutputs(SEGMENTS);
-        Password controls = new RemovePassword(credentials);
+        AbstractPassword controls = new RemovePassword(credentials);
         controls.runPasswordFunction();
     }
 
@@ -108,7 +144,7 @@ public class Controller {
         final int SEGMENTS = 2;
         printPrompt(new ShowPasswordPrompt());
         Combo credentials = getOutputs(SEGMENTS);
-        Password controls = new ShowPassword(credentials);
+        AbstractPassword controls = new ShowPassword(credentials);
         controls.runPasswordFunction();
     }
 }

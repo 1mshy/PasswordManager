@@ -1,4 +1,4 @@
-package com.imshy.Backend.Password;
+package com.imshy.Backend.Password.Functions;
 
 import com.google.gson.JsonObject;
 import com.imshy.Backend.Combo;
@@ -6,14 +6,14 @@ import com.imshy.Backend.FileManager;
 import com.imshy.Backend.JsonTools;
 import com.imshy.Backend.Writer;
 
-public abstract class Password {
+public abstract class AbstractPassword {
     final FileManager fileManager = new FileManager();
     final JsonTools jsonTools = new JsonTools();
     final Writer writer = new Writer();
     final Combo combo;
     JsonObject data;
 
-    public Password(Combo combo) {
+    public AbstractPassword(Combo combo) {
         this.combo = combo;
         this.data = jsonTools.getFileJson();
     }

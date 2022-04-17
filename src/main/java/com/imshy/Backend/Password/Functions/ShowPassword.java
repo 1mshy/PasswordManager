@@ -1,9 +1,9 @@
-package com.imshy.Backend.Password;
+package com.imshy.Backend.Password.Functions;
 
 import com.google.gson.JsonObject;
 import com.imshy.Backend.Combo;
 
-public class ShowPassword extends Password{
+public class ShowPassword extends AbstractPassword {
     public ShowPassword(Combo combo) {
         super(combo);
     }

@@ -1,6 +1,6 @@
 package com.imshy.Backend;
 
-import com.imshy.Encrypter.XorEncrypter;
+import com.imshy.Encrypter.Xor;
 
 import java.io.*;
 
@@ -59,7 +59,7 @@ public class FileManager {
         String unencryptedData = "";
         try {
             data = getFileData();
-            unencryptedData = XorEncrypter.getInstance().decrypt(data);
+            unencryptedData = Xor.getInstance().decrypt(data);
         } catch (IOException e) {
             e.printStackTrace();
         }

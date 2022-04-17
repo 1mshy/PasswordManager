@@ -1,7 +1,7 @@
 package com.imshy.Backend;
 
 import com.google.gson.JsonObject;
-import com.imshy.Encrypter.XorEncrypter;
+import com.imshy.Encrypter.Xor;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class Writer {
 
     public void encryptAndWriteToFile(String data)
     {
-        String encryptedData = XorEncrypter.getInstance().encrypt(data);
+        String encryptedData = Xor.getInstance().encrypt(data);
         writeToFile(encryptedData);
     }
     public void encryptAndWriteToFile(JsonObject jsonObject)
