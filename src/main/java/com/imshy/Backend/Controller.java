@@ -45,7 +45,7 @@ public class Controller {
         masterPassword.exitIfIncorrectPassword();
 
         scanAndExecute();
-        System.exit(0);
+
     }
 
 
@@ -54,10 +54,7 @@ public class Controller {
     }
 
     private String obtainMasterPassword() {
-        Output output = new Output();
-        output.printPrompt(getCorrectMasterPrompt());
-        Input input = new Input();
-        return input.scan();
+        return new UI().printPromptAndScan(getCorrectMasterPrompt());
     }
 
     private MasterPasswordPrompt getCorrectMasterPrompt() {
@@ -86,7 +83,6 @@ public class Controller {
             case OTHER -> other();
         }
 
-
     }
 
     private void other() {
@@ -101,7 +97,7 @@ public class Controller {
     }
 
     private void printPrompt(Prompt prompt) {
-        new Output().printPrompt(prompt);
+        new UI().printPrompt(prompt);
     }
 
     private Combo getOutputs() {

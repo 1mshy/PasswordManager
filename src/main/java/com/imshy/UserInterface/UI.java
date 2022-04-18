@@ -3,6 +3,7 @@ package com.imshy.UserInterface;
 import com.imshy.UserInterface.Prompt.ListPrompt;
 import com.imshy.UserInterface.Prompt.MainPrompt;
 import com.imshy.UserInterface.Prompt.OtherPrompt;
+import com.imshy.UserInterface.Prompt.Prompt;
 
 public class UI {
 
@@ -21,10 +22,25 @@ public class UI {
         return scanInputNumber(OTHER_PROMPT);
     }
 
-    private void printMainPrompt() {
-        OUTPUT.printPrompt(MAIN_PROMPT);
+    public int printListPromptAndScan(ListPrompt<String> prompt)
+    {
+        printPrompt(prompt);
+        return scanInputNumber(prompt);
     }
-    private void printOtherPrompt() {OUTPUT.printPrompt(OTHER_PROMPT);}
+    public String printPromptAndScan(Prompt prompt)
+    {
+        printPrompt(prompt);
+        return INPUT.scan();
+    }
+    public void printPrompt(Prompt prompt)
+    {
+        OUTPUT.printPrompt(prompt);
+    }
+
+    private void printMainPrompt() {
+        printPrompt(MAIN_PROMPT);
+    }
+    private void printOtherPrompt() {printPrompt(OTHER_PROMPT);}
 
     private int scanInputNumber(ListPrompt<String> listPrompt) {
         return INPUT.takeInputNumber(listPrompt.size());

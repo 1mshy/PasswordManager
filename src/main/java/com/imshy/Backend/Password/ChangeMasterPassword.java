@@ -9,13 +9,12 @@ import com.imshy.Encrypter.Xor;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Output;
 import com.imshy.UserInterface.Prompt.ChangeMasterPasswordPrompt;
+import com.imshy.UserInterface.UI;
 
 public class ChangeMasterPassword {
 
-    public void changeMasterPassword()
-    {
-        new Output().printPrompt(new ChangeMasterPasswordPrompt());
-        String masterPassword = new Input().scan();
+    public void changeMasterPassword() {
+        String masterPassword = new UI().printPromptAndScan(new ChangeMasterPasswordPrompt());
 
         JsonTools tools = new JsonTools();
         JsonObject data = tools.getFileJson();
