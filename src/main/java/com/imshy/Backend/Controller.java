@@ -5,7 +5,6 @@ import com.imshy.Backend.Password.Functions.*;
 import com.imshy.Backend.Password.MasterPassword;
 import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
-import com.imshy.UserInterface.Output;
 import com.imshy.UserInterface.UI;
 
 
@@ -44,7 +43,7 @@ public class Controller {
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();
 
-        scanAndExecute();
+        executeMainPrompt();
 
     }
 
@@ -70,7 +69,7 @@ public class Controller {
     }
 
     //shows the normal UI + takes input + executes the input
-    private void scanAndExecute() {
+    private void executeMainPrompt() {
         UI ui = new UI();
         int chosen = ui.printMainAndScan();
 
@@ -92,7 +91,7 @@ public class Controller {
         switch (OtherPrompt.OTHER_OPTIONS.values()[chosen - 1])
         {
             case CHANGE_MASTER_PASSWORD -> changeMasterPassword();
-            case SHOW_ALL_PASSWORDS -> showAllPasswords();
+            case SHOW_ALL_DOMAINS -> showAllDomains();
         }
     }
 
@@ -117,9 +116,10 @@ public class Controller {
 
     }
 
-    private void showAllPasswords()
+    private void showAllDomains()
     {
-
+        AbstractPassword showAllDomains = new ShowAllDomains();
+        showAllDomains.runPasswordFunction();
     }
 
     private void changeMasterPassword()

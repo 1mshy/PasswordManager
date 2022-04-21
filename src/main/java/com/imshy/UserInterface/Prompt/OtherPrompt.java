@@ -11,7 +11,8 @@ public class OtherPrompt extends ListPrompt<String> implements Prompt {
 
     public enum OTHER_OPTIONS {
         CHANGE_MASTER_PASSWORD("Change master password"),
-        SHOW_ALL_PASSWORDS("Show all passwords (NOT DONE)");
+        SHOW_ALL_DOMAINS("Show all domains"),
+        SHOW_ALL_EMAILS("Show all emails");
 
         // label has to be defined here or enum will break
         private final String label;
@@ -25,9 +26,9 @@ public class OtherPrompt extends ListPrompt<String> implements Prompt {
         }
         static List<String> getOptionLabels() {
             List<String> stringedOptions = new ArrayList<>();
-            List<OTHER_OPTIONS> MAINOPTIONS = getOptions();
+            List<OTHER_OPTIONS> otherOptions = getOptions();
 
-            for (OTHER_OPTIONS o : MAINOPTIONS) {
+            for (OTHER_OPTIONS o : otherOptions) {
                 stringedOptions.add(o.label);
             }
             return stringedOptions;

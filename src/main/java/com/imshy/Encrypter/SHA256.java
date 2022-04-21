@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-// will be used to safely store the master password
+@Deprecated
 public class SHA256 {
     public final String SALT = "salty";
 

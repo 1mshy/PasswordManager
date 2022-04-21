@@ -14,7 +14,5 @@ public class ShowPassword extends AbstractPassword {
         if(!domain.has(combo.getEmail()))
             return; // add error message
         System.out.printf("The password to '%s' is: %s", combo.getEmail(), lazyParsePassword());
-
-
     }
 }

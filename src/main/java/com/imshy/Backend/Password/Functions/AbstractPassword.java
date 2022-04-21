@@ -28,6 +28,10 @@ public abstract class AbstractPassword {
         }
         return parseDomain();
     }
+    JsonObject getData()
+    {
+        return data;
+    }
     String parsePassword()
     {
         return lazyParseDomain().get(combo.getEmail()).getAsString();
