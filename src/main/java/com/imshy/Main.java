@@ -18,6 +18,5 @@ public class Main {
         Controller controller = Controller.getInstance();
         controller.setArgs(args);
         controller.run();
-
     }
 }

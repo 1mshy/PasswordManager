@@ -7,12 +7,16 @@ import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.UI;
 
+import javax.security.auth.callback.TextInputCallback;
+import java.io.IOException;
+
 
 public class Controller {
     private static Controller instance;
     private String[] args;
     private final FileManager fileManager;
     private final JsonTools jsonTools;
+
 
     public static Controller getInstance() {
         if (instance == null) {
@@ -43,7 +47,12 @@ public class Controller {
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();
 
-        executeMainPrompt();
+        while (true)
+        {
+            executeMainPrompt();
+            System.out.println();
+            System.out.println();
+        }
 
     }
 
@@ -92,7 +101,15 @@ public class Controller {
         {
             case CHANGE_MASTER_PASSWORD -> changeMasterPassword();
             case SHOW_ALL_DOMAINS -> showAllDomains();
+            case SHOW_ALL_EMAILS -> showAllEmails();
         }
+    }
+
+    private void showAllEmails() {
+        printPrompt(new ShowAllEmailsPrompt());
+        String domain = new Input().scan();
+        AbstractPassword showAllEmails = new ShowAllEmails(new Combo(new String[] {domain, "f", "f"}));
+        showAllEmails.runPasswordFunction();
     }
 
     private void printPrompt(Prompt prompt) {

@@ -5,7 +5,7 @@ import com.imshy.Backend.Combo;
 
 import java.util.Set;
 
-public class ShowAllDomains extends AbstractPassword{
+public class ShowAllDomains extends AbstractPassword {
 
     public ShowAllDomains() {
         // just to make it not throw an error
