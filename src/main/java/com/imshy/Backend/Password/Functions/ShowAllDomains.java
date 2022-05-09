@@ -16,7 +16,11 @@ public class ShowAllDomains extends AbstractPassword {
     public void runPasswordFunction() {
         JsonObject data = getData();
         Set<String> keys = data.keySet();
-
-        System.out.printf("The domains currently registered are: %s", String.join(", ", keys));
+        if (keys.size()==0)
+            System.out.println("There are currently no domains, create a new password to make one");
+        else
+            System.out.printf("The domains currently registered are: %s", String.join(", ", keys));
+        // new line
+        System.out.println();
     }
 }

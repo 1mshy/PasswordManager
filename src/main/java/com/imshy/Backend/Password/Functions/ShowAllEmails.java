@@ -12,6 +12,11 @@ public class ShowAllEmails extends AbstractPassword{
     @Override
     public void runPasswordFunction() {
         Set<String> keys = this.lazyParseDomain().keySet();
-        System.out.printf("The emails currently registered under %s are: %s", super.combo.getDomain(), String.join(", ", keys));
+        if(keys.size()==0)
+            System.out.printf("The domain %s is not found.", combo.getDomain());
+        else
+            System.out.printf("The emails currently registered under %s are: %s", super.combo.getDomain(), String.join(", ", keys));
+        //new line
+        System.out.println();
     }
 }
