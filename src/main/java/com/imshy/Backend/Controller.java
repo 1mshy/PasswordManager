@@ -7,6 +7,8 @@ import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.UI;
 
+import java.util.NoSuchElementException;
+
 
 public class Controller {
     private static Controller instance;
@@ -44,13 +46,34 @@ public class Controller {
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();
 
-        while (true) {
-            executeMainPrompt();
-            System.out.println();
-            System.out.println();
-        }
+        loopMainPromptUntilError();
+        exit();
 
     }
+    private void loopMainPromptUntilError()
+    {
+        try {
+            while (true)
+            {
+                executeMainPrompt();
+                System.out.println();
+                System.out.println();
+            }
+        }
+        // happens when user clicks control C on keyboard to exit
+        catch (NoSuchElementException e)
+        {
+        }
+    }
+    private void exit()
+    {
+        // print before exit because user cancels on input message
+        // else exit message will print on same line as input message
+        System.out.println();
+        System.out.println("Exitting...");
+        System.exit(0);
+    }
+
 
 
     private void cli() {
