@@ -24,6 +24,7 @@ public class MainPrompt extends ListPrompt<String> {
         static List<MAIN_OPTIONS> getOptions() {
             return new ArrayList<>(EnumSet.allOf(MAIN_OPTIONS.class));
         }
+
         static List<String> getOptionLabels() {
             List<String> stringedOptions = new ArrayList<>();
             List<MAIN_OPTIONS> MAINOPTIONS = getOptions();

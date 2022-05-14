@@ -3,7 +3,6 @@ package com.imshy.Encrypter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 @Deprecated
 public class SHA256 {
@@ -15,7 +14,7 @@ public class SHA256 {
         byte[] hash = digest.digest(salted.getBytes(StandardCharsets.UTF_8));
         return bytesToHex(hash);
     }
-       
+
     private String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
         for (byte b : hash) {

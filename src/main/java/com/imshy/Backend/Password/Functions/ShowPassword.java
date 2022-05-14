@@ -11,8 +11,7 @@ public class ShowPassword extends AbstractPassword {
     @Override
     public void runPasswordFunction() {
         JsonObject domain = lazyParseDomain();
-        if(!domain.has(combo.getEmail()))
-        {
+        if (!domain.has(combo.getEmail())) {
             System.out.printf("Sorry the email %s does not exist in the domain %s.", combo.getEmail(), combo.getDomain());
             return;
         }

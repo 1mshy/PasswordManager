@@ -2,7 +2,10 @@ package com.imshy.Backend;
 
 import com.imshy.Encrypter.Xor;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class FileManager {
 
@@ -40,10 +43,12 @@ public class FileManager {
         }
 
     }
+
     private void writeInitialJson() throws IOException {
         Writer writer = new Writer();
         writer.encryptAndWriteToFile("{}");
     }
+
     private void createPasswordFile() throws IOException {
         File password = getPasswordFile();
         File parent = password.getParentFile();
@@ -80,9 +85,6 @@ public class FileManager {
         }
         return data;
     }
-
-
-
 
 
 }

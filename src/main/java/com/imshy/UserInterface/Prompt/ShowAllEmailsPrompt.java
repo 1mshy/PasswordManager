@@ -1,6 +1,6 @@
 package com.imshy.UserInterface.Prompt;
 
-public class ShowAllEmailsPrompt implements Prompt{
+public class ShowAllEmailsPrompt implements Prompt {
 
     @Override
     public String structurePrompt() {

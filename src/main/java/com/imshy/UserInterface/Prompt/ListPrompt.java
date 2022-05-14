@@ -22,9 +22,11 @@ public abstract class ListPrompt<E> implements Prompt {
     public int size() {
         return getValues().size();
     }
-    public List<E> getValues(){
+
+    public List<E> getValues() {
         return values;
     }
+
     private ArrayList<Choice> mapToChoices(List<E> values) {
         ArrayList<Choice> choices = new ArrayList<>();
         for (int i = 1; i <= values.size(); i++) {
@@ -33,11 +35,10 @@ public abstract class ListPrompt<E> implements Prompt {
         }
         return choices;
     }
-    private String stringChoices(List<Choice> choices)
-    {
+
+    private String stringChoices(List<Choice> choices) {
         StringBuilder sb = new StringBuilder();
-        for(Choice c : choices)
-        {
+        for (Choice c : choices) {
             sb.append(c.toString()).append('\n');
         }
         return sb.toString();

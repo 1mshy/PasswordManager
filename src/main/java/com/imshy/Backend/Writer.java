@@ -14,12 +14,13 @@ public class Writer {
         fileWriter.write(content);
         fileWriter.close();
     }
+
     private void write(JsonObject jsonObject) throws IOException {
-            write(jsonObject.toString());
+        write(jsonObject.toString());
     }
+
     // These methods exist soley for debugging
-    public void writeToFile(String content)
-    {
+    public void writeToFile(String content) {
         try {
             write(content);
         } catch (IOException e) {
@@ -28,22 +29,20 @@ public class Writer {
             System.exit(1);
         }
     }
-    public void writeToFile(JsonObject jsonObject)
-    {
+
+    public void writeToFile(JsonObject jsonObject) {
         writeToFile(jsonObject.toString());
     }
     //
 
-    public void encryptAndWriteToFile(String data)
-    {
+    public void encryptAndWriteToFile(String data) {
         String encryptedData = Xor.getInstance().encrypt(data);
         writeToFile(encryptedData);
     }
-    public void encryptAndWriteToFile(JsonObject jsonObject)
-    {
+
+    public void encryptAndWriteToFile(JsonObject jsonObject) {
         encryptAndWriteToFile(jsonObject.toString());
     }
-
 
 
 }

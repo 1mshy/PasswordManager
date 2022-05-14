@@ -4,13 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
-// may be used as a secondary mapping over the xor encrypter
 @Deprecated
 public class Mapper {
     private final String ALL_CHARACTERS = "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~";
@@ -47,10 +42,12 @@ public class Mapper {
         }
         return map;
     }
+
     public Map<Character, Character> getMap() {
         // TODO
         return generateMap();
     }
+
     // METHOD OVERRIDES PREVIOUS MAP
     // can cause old hashes using older maps to become invalid if not handled properly
     public void replaceMap() throws IOException {

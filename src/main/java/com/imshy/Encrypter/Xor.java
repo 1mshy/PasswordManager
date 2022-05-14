@@ -5,39 +5,36 @@ import java.math.BigInteger;
 // will be used to store user passwords, excluding the master password
 public class Xor {
 
+    private static Xor instance;
     private final int RADIX = 20;
     private String key;
-
-    private static Xor instance;
 
     private Xor() {
         key = "2349082340978235";
     }
+
+    public static Xor getInstance() {
+        if (instance == null) {
+            instance = new Xor();
+        }
+        return instance;
+    }
+
     // should only run once at the start
-    private void setKey(String key)
-    {
+    private void setKey(String key) {
         StringBuilder sb = new StringBuilder();
         // changes the string to integers
         key.chars().boxed().forEach(sb::append);
         this.key = sb.toString();
     }
-    public void setKeyAndSalt(String key)
-    {
+
+    public void setKeyAndSalt(String key) {
         setKey(addSalt(key));
     }
-    private String addSalt(String key)
-    {
+
+    private String addSalt(String key) {
         // static salt
         return key + "jf(4D&$j3";
-    }
-
-    public static Xor getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new Xor();
-        }
-        return instance;
     }
 
     public final String encrypt(String password) {
@@ -54,7 +51,8 @@ public class Xor {
 
     public final String decrypt(String encrypted) {
         if (encrypted == null) throw new NullPointerException("Null cannot be decrypted");
-        if (encrypted.length() == 0) throw new IllegalArgumentException("Decrypted String cannot be empty. If you see a password file with no data inside, delete it");
+        if (encrypted.length() == 0)
+            throw new IllegalArgumentException("Decrypted String cannot be empty. If you see a password file with no data inside, delete it");
 
         BigInteger bi_confuse = new BigInteger(key);
 

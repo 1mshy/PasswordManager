@@ -8,13 +8,11 @@ import com.imshy.Backend.Errors.WrongMasterPasswordException;
 public class JsonTools {
     private final FileManager fileManager;
 
-    public JsonTools()
-    {
+    public JsonTools() {
         this.fileManager = new FileManager();
     }
 
-    public void validateJson(String json)
-    {
+    public void validateJson(String json) {
         // void as a false flag would never occur
         try {
             JsonParser.parseString(json);
@@ -22,6 +20,7 @@ public class JsonTools {
             throw new WrongMasterPasswordException();
         }
     }
+
     public JsonObject getFileJson() {
         return JsonParser.parseString(fileManager.getUnenctryptedFileData()).getAsJsonObject();
     }

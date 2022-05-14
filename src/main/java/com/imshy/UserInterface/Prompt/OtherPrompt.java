@@ -24,6 +24,7 @@ public class OtherPrompt extends ListPrompt<String> implements Prompt {
         static List<OTHER_OPTIONS> getOptions() {
             return new ArrayList<>(EnumSet.allOf(OtherPrompt.OTHER_OPTIONS.class));
         }
+
         static List<String> getOptionLabels() {
             List<String> stringedOptions = new ArrayList<>();
             List<OTHER_OPTIONS> otherOptions = getOptions();

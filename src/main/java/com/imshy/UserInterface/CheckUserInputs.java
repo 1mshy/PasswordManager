@@ -14,9 +14,7 @@ public class CheckUserInputs {
     public boolean malformedComboInput(String combo, int segements) {
         // *source* *email* *password*
         int emailLocation = 1;
-        if (combo == null || combo.split(" ").length != segements)
-            return true;
-        return false;
+        return combo == null || combo.split(" ").length != segements;
     }
 
 }

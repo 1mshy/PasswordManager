@@ -3,20 +3,22 @@ package com.imshy.Backend;
 import com.imshy.Backend.Password.ChangeMasterPassword;
 import com.imshy.Backend.Password.Functions.*;
 import com.imshy.Backend.Password.MasterPassword;
-import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.Input;
+import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.UI;
-
-import javax.security.auth.callback.TextInputCallback;
-import java.io.IOException;
 
 
 public class Controller {
     private static Controller instance;
-    private String[] args;
     private final FileManager fileManager;
     private final JsonTools jsonTools;
+    private String[] args;
 
+
+    private Controller() {
+        this.fileManager = new FileManager();
+        this.jsonTools = new JsonTools();
+    }
 
     public static Controller getInstance() {
         if (instance == null) {
@@ -27,11 +29,6 @@ public class Controller {
 
     public void setArgs(String[] args) {
         this.args = args;
-    }
-
-    private Controller() {
-        this.fileManager = new FileManager();
-        this.jsonTools = new JsonTools();
     }
 
     public void run() {
@@ -47,8 +44,7 @@ public class Controller {
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();
 
-        while (true)
-        {
+        while (true) {
             executeMainPrompt();
             System.out.println();
             System.out.println();
@@ -70,9 +66,9 @@ public class Controller {
             return new MasterPasswordPrompt();
         return new NewMasterPasswordPrompt();
     }
+
     // only works on windows for now
-    public void clearTerminal()
-    {
+    public void clearTerminal() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -97,8 +93,7 @@ public class Controller {
         UI ui = new UI();
         int chosen = ui.printOtherAndScan();
 
-        switch (OtherPrompt.OTHER_OPTIONS.values()[chosen - 1])
-        {
+        switch (OtherPrompt.OTHER_OPTIONS.values()[chosen - 1]) {
             case CHANGE_MASTER_PASSWORD -> changeMasterPassword();
             case SHOW_ALL_DOMAINS -> showAllDomains();
             case SHOW_ALL_EMAILS -> showAllEmails();
@@ -108,7 +103,7 @@ public class Controller {
     private void showAllEmails() {
         printPrompt(new ShowAllEmailsPrompt());
         String domain = new Input().scan();
-        AbstractPassword showAllEmails = new ShowAllEmails(new Combo(new String[] {domain, "f", "f"}));
+        AbstractPassword showAllEmails = new ShowAllEmails(new Combo(new String[]{domain, "f", "f"}));
         showAllEmails.runPasswordFunction();
     }
 
@@ -133,14 +128,12 @@ public class Controller {
 
     }
 
-    private void showAllDomains()
-    {
+    private void showAllDomains() {
         AbstractPassword showAllDomains = new ShowAllDomains();
         showAllDomains.runPasswordFunction();
     }
 
-    private void changeMasterPassword()
-    {
+    private void changeMasterPassword() {
         ChangeMasterPassword changeMasterPassword = new ChangeMasterPassword();
         changeMasterPassword.changeMasterPassword();
     }

@@ -1,11 +1,6 @@
 package com.imshy;
 
 import com.imshy.Backend.Controller;
-import com.imshy.UserInterface.Input;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 
 
 public class Main {

@@ -12,7 +12,7 @@ public class RemovePassword extends AbstractPassword {
     public void runPasswordFunction() {
         JsonObject domain = lazyParseDomain();
 
-        if(domain.has(combo.getEmail()))
+        if (domain.has(combo.getEmail()))
             domain.remove(combo.getEmail());
 
         writer.encryptAndWriteToFile(data);

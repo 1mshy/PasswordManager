@@ -63,7 +63,6 @@ public class Input {
     }
 
 
-
     private void quitIfPrompted(String s) {
         if (Objects.equals(s, "quit") || Objects.equals(s, "exit")) {
             System.out.println("Exiting now...");
