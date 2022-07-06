@@ -12,7 +12,9 @@ public class OtherPrompt extends ListPrompt<String> implements Prompt {
     public enum OTHER_OPTIONS {
         CHANGE_MASTER_PASSWORD("Change master password"),
         SHOW_ALL_DOMAINS("Show all domains"),
-        SHOW_ALL_EMAILS("Show all emails");
+        SHOW_ALL_EMAILS("Show all emails"),
+        EXPORT("Export all passowrds"),
+        IMPORT("Import password from a file");
 
         // label has to be defined here or enum will break
         private final String label;

@@ -57,6 +57,10 @@ public class FileManager {
         }
         password.createNewFile();
     }
+    public void createNewFile(String name) throws IOException {
+        File file = new File(name);
+        file.createNewFile();
+    }
 
     public String getUnenctryptedFileData() {
         //series of tests that validates the master password correctly decrypted the data

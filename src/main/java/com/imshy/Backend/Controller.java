@@ -39,8 +39,9 @@ public class Controller {
             cli();
             return;
         }
-        MasterPassword masterPassword = MasterPassword.getInstance();
+
         String pass = obtainMasterPassword();
+        MasterPassword masterPassword = MasterPassword.getInstance();
         masterPassword.setMasterPassword(pass);
 
         fileManager.instantiateFileIfMissing();
@@ -120,9 +121,19 @@ public class Controller {
             case CHANGE_MASTER_PASSWORD -> changeMasterPassword();
             case SHOW_ALL_DOMAINS -> showAllDomains();
             case SHOW_ALL_EMAILS -> showAllEmails();
+            case EXPORT -> export();
+            case IMPORT -> importPasswords();
         }
     }
+    private void importPasswords()
+    {
 
+    }
+    private void export()
+    {
+        AbstractPassword export = new ExportPasswords(new Combo(new String[] {}));
+        export.runPasswordFunction();
+    }
     private void showAllEmails() {
         printPrompt(new ShowAllEmailsPrompt());
         String domain = new Input().scan();

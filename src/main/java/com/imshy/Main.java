@@ -1,6 +1,9 @@
 package com.imshy;
 
 import com.imshy.Backend.Controller;
+import com.imshy.GUI.GUI;
+
+import javax.swing.*;
 
 
 public class Main {
@@ -12,6 +15,9 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = Controller.getInstance();
         controller.setArgs(args);
-        controller.run();
+
+        JFrame gui = new GUI();
+//        controller.run();
     }
+
 }

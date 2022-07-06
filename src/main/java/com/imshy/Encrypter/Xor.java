@@ -60,6 +60,7 @@ public class Xor {
             BigInteger bi_r1 = new BigInteger(encrypted, RADIX);
             BigInteger bi_r0 = bi_r1.xor(bi_confuse);
 
+            System.out.println(new String(bi_r0.toByteArray()));
             return new String(bi_r0.toByteArray());
 
         } catch (Exception e) {

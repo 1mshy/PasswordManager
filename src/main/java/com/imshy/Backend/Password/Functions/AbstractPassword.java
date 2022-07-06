@@ -6,6 +6,8 @@ import com.imshy.Backend.FileManager;
 import com.imshy.Backend.JsonTools;
 import com.imshy.Backend.Writer;
 
+import java.io.IOException;
+
 public abstract class AbstractPassword {
     final FileManager fileManager = new FileManager();
     final JsonTools jsonTools = new JsonTools();
