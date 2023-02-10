@@ -7,8 +7,13 @@ import javax.swing.*;
 public class ExitButton extends JButton {
     public ExitButton()
     {
-        this.setVisible(true);
         this.setText("Exit");
-        this.setAction(new ExitAction());
+        this.addActionListener(e -> action());
+        this.setBounds(130, 130, 100, 40);
+    }
+
+    private void action()
+    {
+        System.out.println("Damn you just clicked the exit button;!");
     }
 }

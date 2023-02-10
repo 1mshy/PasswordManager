@@ -46,7 +46,7 @@ public class Controller {
 
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();
-
+        clearTerminal();
         loopMainPromptUntilError();
         exit();
 
@@ -64,6 +64,7 @@ public class Controller {
         // happens when user clicks control C on keyboard to exit
         catch (NoSuchElementException e)
         {
+            exit();
         }
     }
     private void exit()
@@ -125,6 +126,7 @@ public class Controller {
             case IMPORT -> importPasswords();
         }
     }
+
     private void importPasswords()
     {
 

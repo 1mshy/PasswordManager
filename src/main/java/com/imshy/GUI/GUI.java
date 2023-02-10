@@ -1,22 +1,37 @@
 package com.imshy.GUI;
 
 import com.imshy.GUI.Buttons.ExitButton;
-
 import javax.swing.*;
 
 public class GUI extends JFrame {
-    private JMenu MAIN_MENU;
+    private static GUI gui = new com.imshy.GUI.GUI();
+    private JList<JButton> mainMenu;
+    private GUI() {
+        setUpMainMenu();
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    public GUI() {
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500,400);
+        setVisible(true);
 
-        this.setBounds(0, 0, 300 ,200);
+    }
+    public void getRThing()
+    {
+
+    }
+    public static GUI getInstance()
+    {
+        return gui;
     }
 
     private void setUpMainMenu() {
-        MAIN_MENU = new JMenu();
-        MAIN_MENU.add(new MainMenu());
+        mainMenu = new MainMenu();
+        add(mainMenu);
+    }
+
+    private void setUpExitButton()
+    {
+        add(new ExitButton());
     }
 
 }

@@ -35,6 +35,7 @@ public class Xor {
     private String addSalt(String key) {
         // static salt
         return key + "jf(4D&$j3";
+        
     }
 
     public final String encrypt(String password) {
