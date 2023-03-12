@@ -4,10 +4,10 @@ import java.util.OptionalDouble;
 
 public class CustomEncryption {
     Sha256 sha256 = new Sha256();
-    // gets the 100000th sha256 hash of the raw input
+    final int NUMOFLOOPS = 1000;
     public String hash(String raw) {
         String temp = sha256.hash(raw);
-        for(int i = 0; i < 100000; i++)
+        for(int i = 0; i < NUMOFLOOPS; i++)
         {
             // resulting string has length 64
             temp = sha256.hash(temp.substring(31) + getAvg(temp));
