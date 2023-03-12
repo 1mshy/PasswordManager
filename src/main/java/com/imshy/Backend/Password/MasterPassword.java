@@ -6,7 +6,6 @@ import com.imshy.Encrypter.Xor;
 
 public class MasterPassword {
     private static MasterPassword instance;
-    private String masterPassword;
 
     private MasterPassword() {
 
@@ -19,8 +18,7 @@ public class MasterPassword {
     }
 
     public void setMasterPassword(String masterPassword) {
-        this.masterPassword = masterPassword;
-        Xor.getInstance().setKeyAndSalt(masterPassword);
+        Xor.getInstance().setKey(masterPassword);
     }
 
     public void exitIfIncorrectPassword() {

@@ -14,14 +14,6 @@ public class JsonTools {
         this.fileManager = new FileManager();
     }
 
-    public void validateJson(String json) {
-        // void as a false flag would never occur
-        try {
-            JsonParser.parseString(json);
-        } catch (JsonSyntaxException e) {
-            throw new WrongMasterPasswordException();
-        }
-    }
 
     public JsonObject getFileJson() {
         return JsonParser.parseString(fileManager.getUnenctryptedFileData()).getAsJsonObject();
@@ -30,6 +22,21 @@ public class JsonTools {
     {
         return this.getFileJson().keySet();
     }
+    public void validateJson(String json) {
+        // void as a false flag would never occur
+        try {
+            JsonParser.parseString(json);
+            if(!json.chars().allMatch(this::isDefined))
+                throw new WrongMasterPasswordException();
+        } catch (JsonSyntaxException e) {
+            throw new WrongMasterPasswordException();
+        }
+    }
 
+    private boolean isDefined(int c)
+    {
+        return "!@#$%^&*()_+1234567890-=\\|~`qwertyuiop[]asdfghjkl;'zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>)"
+                .contains(String.valueOf((char)(c)));
+    }
 
 }

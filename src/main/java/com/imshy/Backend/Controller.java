@@ -3,6 +3,7 @@ package com.imshy.Backend;
 import com.imshy.Backend.Password.ChangeMasterPassword;
 import com.imshy.Backend.Password.Functions.*;
 import com.imshy.Backend.Password.MasterPassword;
+import com.imshy.Encrypter.CustomEncryption;
 import com.imshy.UserInterface.Input;
 import com.imshy.UserInterface.Prompt.*;
 import com.imshy.UserInterface.UI;
@@ -41,8 +42,9 @@ public class Controller {
         }
 
         String pass = obtainMasterPassword();
+        String hashedPass = new CustomEncryption().hash(pass);
         MasterPassword masterPassword = MasterPassword.getInstance();
-        masterPassword.setMasterPassword(pass);
+        masterPassword.setMasterPassword(hashedPass);
 
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();

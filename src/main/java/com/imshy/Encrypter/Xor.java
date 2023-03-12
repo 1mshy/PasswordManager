@@ -21,21 +21,11 @@ public class Xor {
     }
 
     // should only run once at the start
-    private void setKey(String key) {
+    public void setKey(String key) {
         StringBuilder sb = new StringBuilder();
         // changes the string to integers
         key.chars().boxed().forEach(sb::append);
         this.key = sb.toString();
-    }
-
-    public void setKeyAndSalt(String key) {
-        setKey(addSalt(key));
-    }
-
-    private String addSalt(String key) {
-        // static salt
-        return key + "jf(4D&$j3";
-        
     }
 
     public final String encrypt(String password) {
@@ -61,7 +51,7 @@ public class Xor {
             BigInteger bi_r1 = new BigInteger(encrypted, RADIX);
             BigInteger bi_r0 = bi_r1.xor(bi_confuse);
 
-            System.out.println(new String(bi_r0.toByteArray()));
+//            System.out.println(new String(bi_r0.toByteArray()));
             return new String(bi_r0.toByteArray());
 
         } catch (Exception e) {

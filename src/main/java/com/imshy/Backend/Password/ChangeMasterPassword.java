@@ -15,7 +15,7 @@ public class ChangeMasterPassword {
         JsonTools tools = new JsonTools();
         JsonObject data = tools.getFileJson();
 
-        Xor.getInstance().setKeyAndSalt(masterPassword);
+        Xor.getInstance().setKey(masterPassword);
 
         new Writer().encryptAndWriteToFile(data);
     }
