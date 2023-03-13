@@ -42,9 +42,8 @@ public class Controller {
         }
 
         String pass = obtainMasterPassword();
-        String hashedPass = new CustomEncryption().hash(pass);
         MasterPassword masterPassword = MasterPassword.getInstance();
-        masterPassword.setMasterPassword(hashedPass);
+        masterPassword.setMasterPassword(pass);
 
         fileManager.instantiateFileIfMissing();
         masterPassword.exitIfIncorrectPassword();
@@ -53,31 +52,29 @@ public class Controller {
         exit();
 
     }
-    private void loopMainPromptUntilError()
-    {
+
+    private void loopMainPromptUntilError() {
         try {
-            while (true)
-            {
+            while (true) {
                 executeMainPrompt();
                 System.out.println();
                 System.out.println();
             }
         }
         // happens when user clicks control C on keyboard to exit
-        catch (NoSuchElementException e)
-        {
+        catch (NoSuchElementException e) {
+
             exit();
         }
     }
-    private void exit()
-    {
+
+    private void exit() {
         // print before exit because user cancels on input message
         // else exit message will print on same line as input message
         System.out.println();
         System.out.println("Exitting...");
         System.exit(0);
     }
-
 
 
     private void cli() {
@@ -113,7 +110,6 @@ public class Controller {
             case SHOW_PASSWORD -> showPassword();
             case OTHER -> other();
         }
-
     }
 
     private void other() {
@@ -129,15 +125,15 @@ public class Controller {
         }
     }
 
-    private void importPasswords()
-    {
+    private void importPasswords() {
 
     }
-    private void export()
-    {
-        AbstractPassword export = new ExportPasswords(new Combo(new String[] {}));
+
+    private void export() {
+        AbstractPassword export = new ExportPasswords(new Combo(new String[]{}));
         export.runPasswordFunction();
     }
+
     private void showAllEmails() {
         printPrompt(new ShowAllEmailsPrompt());
         String domain = new Input().scan();
@@ -163,7 +159,6 @@ public class Controller {
 
         AbstractPassword controls = new AddPassword(credentials);
         controls.runPasswordFunction();
-
     }
 
     private void showAllDomains() {
@@ -185,7 +180,7 @@ public class Controller {
     }
 
     private void showPassword() {
-        final int SEGMENTS = 2;
+        final int SEGMENTS = 1;
         printPrompt(new ShowPasswordPrompt());
         Combo credentials = getOutputs(SEGMENTS);
         AbstractPassword controls = new ShowPassword(credentials);

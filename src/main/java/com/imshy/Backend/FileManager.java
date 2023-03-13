@@ -57,6 +57,7 @@ public class FileManager {
         }
         password.createNewFile();
     }
+
     public void createNewFile(String name) throws IOException {
         File file = new File(name);
         file.createNewFile();

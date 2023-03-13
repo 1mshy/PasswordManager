@@ -61,6 +61,32 @@ public class Input {
         assert input != null;
         return new Combo(input.split(" "));
     }
+    public Combo takeCombo(boolean domain, boolean email, boolean password) {
+        int segments = 0;
+        segments += domain ? 1 : 0;
+        segments += email ? 1 : 0;
+        segments += password ? 1 : 0;
+
+        CheckUserInputs checkUserInputs = new CheckUserInputs();
+        String input = null;
+
+        while (checkUserInputs.malformedComboInput(input, segments)) {
+            printDefaultInputMessage();
+            input = SC.nextLine();
+            quitIfPrompted(input);
+        }
+        assert input != null;
+        String[] inputs = input.split(" ");
+        Combo combo = new Combo();
+        int index = segments;
+        if(domain)
+            combo.setDomain(inputs[segments - index--]);
+        if(email)
+            combo.setEmail(inputs[segments - index--]);
+        if(password)
+            combo.setPassword(inputs[segments - index]);
+        return combo;
+    }
 
 
     private void quitIfPrompted(String s) {

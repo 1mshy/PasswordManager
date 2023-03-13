@@ -2,6 +2,7 @@ package com.imshy;
 
 import com.imshy.Backend.Controller;
 import com.imshy.GUI.GUI;
+import com.imshy.UserInterface.Input;
 
 import javax.swing.*;
 
@@ -14,6 +15,7 @@ public class Main {
     //TODO add a search feature where users gets to select a domain then email and see the password attached
 
     public static void main(String[] args) {
+
         Controller controller = Controller.getInstance();
         controller.setArgs(args);
 

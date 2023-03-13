@@ -5,17 +5,17 @@ import com.imshy.Backend.JsonTools;
 import com.imshy.Backend.Writer;
 import com.imshy.Encrypter.Xor;
 import com.imshy.UserInterface.Prompt.ChangeMasterPasswordPrompt;
+import com.imshy.UserInterface.Prompt.MasterPasswordPrompt;
 import com.imshy.UserInterface.UI;
 
 public class ChangeMasterPassword {
 
     public void changeMasterPassword() {
-        String masterPassword = new UI().printPromptAndScan(new ChangeMasterPasswordPrompt());
+        String newMasterPassword = new UI().printPromptAndScan(new ChangeMasterPasswordPrompt());
 
         JsonTools tools = new JsonTools();
         JsonObject data = tools.getFileJson();
-
-        Xor.getInstance().setKey(masterPassword);
+        MasterPassword.getInstance().setMasterPassword(newMasterPassword);
 
         new Writer().encryptAndWriteToFile(data);
     }

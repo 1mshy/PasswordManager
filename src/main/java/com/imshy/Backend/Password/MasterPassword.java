@@ -2,6 +2,7 @@ package com.imshy.Backend.Password;
 
 import com.imshy.Backend.FileManager;
 import com.imshy.Backend.JsonTools;
+import com.imshy.Encrypter.CustomEncryption;
 import com.imshy.Encrypter.Xor;
 
 public class MasterPassword {
@@ -18,7 +19,8 @@ public class MasterPassword {
     }
 
     public void setMasterPassword(String masterPassword) {
-        Xor.getInstance().setKey(masterPassword);
+        String hashedPass = new CustomEncryption().hash(masterPassword);
+        Xor.getInstance().setKey(hashedPass);
     }
 
     public void exitIfIncorrectPassword() {

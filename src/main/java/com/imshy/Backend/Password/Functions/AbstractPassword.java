@@ -19,6 +19,9 @@ public abstract class AbstractPassword {
         this.combo = combo;
         this.data = jsonTools.getFileJson();
     }
+    public AbstractPassword() {
+        this(new Combo());
+    }
 
     JsonObject parseDomain() {
         return data.get(combo.getDomain()).getAsJsonObject();

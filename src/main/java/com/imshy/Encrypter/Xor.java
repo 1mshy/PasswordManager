@@ -43,7 +43,10 @@ public class Xor {
     public final String decrypt(String encrypted) {
         if (encrypted == null) throw new NullPointerException("Null cannot be decrypted");
         if (encrypted.length() == 0)
-            throw new IllegalArgumentException("Decrypted String cannot be empty. If you see a password file with no data inside, delete it");
+        {
+            System.err.println("Decrypted String cannot be empty. If you see a password file with no data inside, delete it");
+            throw new IllegalArgumentException();
+        }
 
         BigInteger bi_confuse = new BigInteger(key);
 
